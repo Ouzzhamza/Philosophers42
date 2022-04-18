@@ -3,36 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cyber-z3ter <cyber-z3ter@student.42.fr>    +#+  +:+       +#+        */
+/*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/17 14:36:06 by cyber-z3ter      ###   ########.fr       */
+/*   Updated: 2022/04/18 14:22:34 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
-void	*init_mutex(t_info *rules)
+int	creat_threads(t_info *rules)
 {
-	int i;
+	int	i;
 
 	i = rules->philo_number;
-	while (i-- > 0)
-	
+	while (i > 0)
+		pthread_create();
+}
+
+
+/* **************************************************** */
+/*                    🅵🅸🅻_🅸🅽🅵🅾                     */
+/* **************************************************** */
+int	init_mutex(t_info *rules)
+{
+	int	i;
+
+	i = rules->philo_number;
+	// while (i-- > 0)
+	return (1);
 
 }
 
 /* **************************************************** */
-/*             🅲🆁🅴🅰🆃_🆃🅷🆁🅴🅰🅳🆂                    */
+/*                    🅵🅸🅻_🅸🅽🅵🅾                     */
 /* **************************************************** */
 
-void	creat_philo(t_info rules)
+int	init_philo(t_info *rules)
 {
-	pthread_t	tid;
 	int			i;
 
-	while (rules.philo_number-- <= 0)
-		pthread_create(&tid, NULL, philosopher, (void *) *arg);
+	i = rules->philo_number;
+	while (i-- >= 0)
+	{
+		rules->philosopher[i].id = i;
+		rules->philosopher[i].left_fork_id = i;
+		rules->philosopher[i].right_fork_id = i + 1;
+	}
+	return (1);
 }
 
 /* **************************************************** */
@@ -55,16 +73,17 @@ int	get_info(int ac, char **av, t_info *rules)
 	}
 	else
 		rules->number_of_meals = 0;
-	if (rules->philo_number < 2 || rules->philo_number > 250  || rules->time_to_die < 0 || \
-		rules->time_to_sleep < 0 || rules->time_to_sleep < 0)
+	if (rules->philo_number < 2 || rules->philo_number > 250 || \
+		rules->time_to_die < 0 || rules->time_to_sleep < 0 || \
+		rules->time_to_sleep < 0)
 		return (0);
-	if (!init_mutex)
-		return (0);
-	return(1);
-} 
+	init_mutex(&rules);
+	init_philo(&rules);
+	return (1);
+}
 
 /* **************************************************** */
-/*                        🅼🅰🅸🅽                           */
+/*                        🅼🅰🅸🅽                        */
 /* **************************************************** */
 
 int	main(int ac, char **av)
@@ -75,4 +94,5 @@ int	main(int ac, char **av)
 		return (ft_error ("Number of argument is wrong "));
 	if (!get_info(ac, av, &rules))
 		return (ft_error() && ft_clear());
+	creat_treads(&rules);
 }
