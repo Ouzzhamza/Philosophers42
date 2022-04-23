@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/18 21:33:09 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/04/23 17:37:59 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,23 @@
 
 # include <stdio.h>
 # include <pthread.h>
+#include  <sys/time.h>
 
 /* **************************************************** */
 /*                  🅳🅰🆃🅰 🆂🆃🆁🆄🅲🆃                  */
 /* **************************************************** */
 typedef struct philosopher
 {
-	int			id;
-	int			left_fork_id;
-	int			right_fork_id;
-	pthread_t	tread_id;
+	int					id;
+	int					left_fork_id;
+	int					right_fork_id;
+	int					last_meal;
+	struct t_info		*rules;
+	pthread_t			tread_id;
 
 }	t_philosopher;
 
-typedef struct info
+typedef struct s_info
 {
 	int				philo_number;
 	int				time_to_eat;
@@ -37,11 +40,10 @@ typedef struct info
 	int				number_of_meals;
 	int				ate;
 	int				died;
-	pthread_mutex_t	forks;
-	pthread_mutex_t	meals;
-	t_philosopher	philosopher[];
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*meals;
+	t_philosopher	*philosopher;
 }	t_info;
-
 
 /* **************************************************** */
 /*             🆁🅴🅶🆄🅻🅰🆁 🅵🆄🅽🅲🆃🅸🅾🅽🆂             */

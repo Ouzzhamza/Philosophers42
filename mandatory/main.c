@@ -6,21 +6,11 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/18 14:22:34 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/04/23 13:33:32 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
-int	creat_threads(t_info *rules)
-{
-	int	i;
-
-	i = rules->philo_number;
-	while (i > 0)
-		pthread_create();
-}
-
 
 /* **************************************************** */
 /*                    🅵🅸🅻_🅸🅽🅵🅾                     */
@@ -30,9 +20,10 @@ int	init_mutex(t_info *rules)
 	int	i;
 
 	i = rules->philo_number;
-	// while (i-- > 0)
-	return (1);
-
+	while (i-- > 0)
+		if (pthread_mutex_init(&(rules->forks[i]), NULL))
+			return (1);
+	return (0);
 }
 
 /* **************************************************** */
@@ -73,9 +64,8 @@ int	get_info(int ac, char **av, t_info *rules)
 	}
 	else
 		rules->number_of_meals = 0;
-	if (rules->philo_number < 2 || rules->philo_number > 250 || \
-		rules->time_to_die < 0 || rules->time_to_sleep < 0 || \
-		rules->time_to_sleep < 0)
+	if (rules->philo_number < 2 || rules->time_to_die < 0 || \
+		rules->time_to_sleep < 0 || rules->time_to_sleep < 0)
 		return (0);
 	init_mutex(&rules);
 	init_philo(&rules);
@@ -94,5 +84,5 @@ int	main(int ac, char **av)
 		return (ft_error ("Number of argument is wrong "));
 	if (!get_info(ac, av, &rules))
 		return (ft_error() && ft_clear());
-	creat_treads(&rules);
+	starat(&rules);
 }
