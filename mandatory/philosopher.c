@@ -6,23 +6,49 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 17:48:24 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/23 17:38:05 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/04/24 17:58:17 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    <philosopher.h>
+
+void	eating(t_philosopher *philo)
+{
+	t_info *rules;
+
+	rules = philo->rules;
+	pthread_mutex_lock(&(rules->forks[philo->left_fork_id]));
+	printing(rules, philo->id, "has taken a fork");
+	pthread_mutex_lock(&(rules->forks[philo->right_fork_id]));
+	printing(rules, philo->id, "has taken a fork");
+	pthread_mutex_lock(&(rules->meals));
+	printing(rules, philo->id, "is eating");
+	// philo->t_last_meal = timestamp();
+	// pthread_mutex_unlock(&(rules->meal_check));
+	// smart_sleep(rules->time_eat, rules);
+	// (philo->x_ate)++;
+	pthread_mutex_unlock(&(rules->forks[philo->left_fork_id]));
+	pthread_mutex_unlock(&(rules->forks[philo->right_fork_id]));
+	
+}
 
 void	philosopher(void *philosophe)
 {
 	t_philosopher	*philo;
 	t_info			*rules;
 
-	philo = (t_philosopher*)philosophe;
+	philo = (t_philosopher	*)philosophe;
 	rules = philo->rules;
-	
+	// if(philo->id % 2)
+	// 	usleep
+	while (!rules->died)
+	{
+		eating(philo);
+		printing(rules, philo->id, "is sleeping");
+		sleping();
+		printing(rules, philo->id, "is thinking");
+	}
 }
-
-
 
 void    start(t_info *rules)
 {
@@ -30,11 +56,12 @@ void    start(t_info *rules)
 	t_philosopher	*philo;
 
 	i = rules->philo_number;
+	rules->first_time = get_time();
 	while (i < 0)
 	{
 		if (pthread_create(&(philo[i].id), NULL, &philosopher, &(philo[i])))
     		return (0);
-		rules->philosopher[i].last_meal = get_time(rules);
+		rules->philosopher[i].last_meal_time = get_time(rules);
 		i++;
 	}
 	death(rules);
