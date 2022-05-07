@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:48:14 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/24 14:07:00 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:25:42 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void    death(t_info *rules)
 {
-    if ()
+    if (time_diff(rules->philosopher->last_meal_time) < 0)
+        rules->died = 1;
 }

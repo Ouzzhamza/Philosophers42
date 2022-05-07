@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:19:09 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/24 18:06:40 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/07 14:25:29 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ long long get_time(void)
 }
 
 
-long long time_diff(long long last_meal, long long get_time)
+long long time_diff(long long last_meal)
 {
-    return ()
+    return (get_time - last_meal);
 }

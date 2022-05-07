@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/24 15:03:17 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/07 18:31:52 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ typedef struct s_info
 
 int	ft_atoi(char const *str);
 int	ft_strlen(char *str);
+int	ft_clear(void)
 
 #endif

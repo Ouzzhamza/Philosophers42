@@ -1,56 +1,58 @@
-CC     = CC
+CC     = cc
 
-CFLAGS  = -Wall -Wetra -Werror
+CFLAGS  = -Wall -Wextra -Werror
 
-UFILE  = /useful
-USRC   = 
-UFILES = $(addprefix $(UFILE), $(USRC))
-UOBJ   = $(UPATH:%.c=:%.o)
+MFILE  = mandatory/
+UFILE  = useful/
+# BFILE  = bonus /
 
+MSRC   = main.c philosopher.c exit.c \
+USRC   = death.c ft_atoi.c ft_strlen.c get_time.c \
+# BSRC   = 
 
-MFILE  = /mandatory
-MSRC   = main.c /
-MFILES = $(addprefix $(MFILE), $(MSRC))
-MOBJ   = $(MFILE:%.c=:%.o)
-
-
-BFILE  = /bonus
-BSRC   = 
-BFILES = $(addprefix $(BFILE), $(BSRC))
-MSRC   = 
-BOBJ   = $(BFILE:%.c=:%.o)
+MPATH = $(addprefix $(MFILE), $(MSRC))
+UPATH = $(addprefix $(UFILE), $(USRC))
+# BFILES = $(addprefix $(BFILE), $(BSRC))
 
 
-%.o	    :%.c mandatory/philosopher.h bonus/philosopher_bonus.h
+MOBJ   = $(MPATH:%.c=%.o)
+UOBJ   = $(UPATH:%.c=%.o)
+
+# BOBJ   = $(BFILE:%.c=:%.o)
+%.o	    :%.c mandatory/philosopher.h
 		$(CC) $(CFLAGS) -c $< -o $@
 
-all     : NAME
-bonus   : BNAME
-NAME    : philosopher
-BNAME   : philosopher_bonus
+
+NAME    = philosopher
+BNAME   = philosopher_bonus
+
+all     : $(NAME)
+
+
+# bonus   : BNAME
 
 $(NAME) : $(MOBJ) $(UOBJ)
-		  $(CC) $(CFLAGS) $(MOBJ) $(UOBJ) -o $(NAME)
+		  $(CC) $(MOBJ) $(UOBJ) -o $(NAME)
 		  @echo "$(CHANGE)∰$(RESET)\c"
 
 
-$(BNAME) : $(BMOBJ) $(UOBJ)
-		   $(CC) $(CFLAGS) $(BMOBJ) $(UOBJ) -o $(BNAME)
-		   @echo "$(CHANGE)∰$(RESET)\c"
+# $(BNAME) : $(BMOBJ) $(UOBJ)
+# 		   $(CC) $(CFLAGS) $(BMOBJ) $(UOBJ) -o $(BNAME)
+# 		   @echo "$(CHANGE)∰$(RESET)\c"
 
 
-
-clean    : rm -f $(MOBJ) $(UOBJ) $(BOBJ)
-		   @echo "$(YELLOW)object files$(TAB)$(RED)were deleted.$(RESET)\n"
+clean    : 
+		   rm -f $(MOBJ) 
+		   @echo "$(YELLOW)object files$(TAB)$(RED)were deleted.$(RESET)"
 
 fclean   : clean
-			rm -f $(NAME) $(BNAME)
-			@echo "$(NAME):$(TAB)$(YELLOW)$(NAME1)$(TAB)$(RED)was  deleted.$(RESET)"
+		   rm -f $(NAME)
+		   @echo "$(NAME)$(RED)DELETED.$(RESET)"
 
 re       : fclean all
 
 .PHONY   : all bonus clean fclean re
-.SILENT  :
+# .SILENT  :
 
 
 GREEN = \033[0;32m
