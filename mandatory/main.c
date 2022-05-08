@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/24 14:42:07 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:42:52 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	get_info(int ac, char **av, t_info *rules)
 	if (rules->philo_number < 2 || rules->time_to_die < 0 || \
 		rules->time_to_sleep < 0 || rules->time_to_sleep < 0)
 		return (0);
-	init_mutex(&rules);
-	init_philo(&rules);
+	init_mutex(rules);
+	init_philo(rules);
 	return (1);
 }
 
@@ -82,8 +82,9 @@ int	main(int ac, char **av)
 	t_info	rules;
 
 	if (ac != 5 || ac != 6)
-		return (ft_error ("Number of argument is wrong "));
+		return (ft_error("Number of argument is wrong"));
 	if (!get_info(ac, av, &rules))
-		return (ft_error() && ft_clear());
-	starat(&rules);
+		return (ft_error("Probleme In Information") && ft_clear());
+	start(&rules);
+	return (0);
 }

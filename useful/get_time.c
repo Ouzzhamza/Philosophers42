@@ -6,24 +6,29 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:19:09 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/07 14:25:29 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/08 20:23:24 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    <philosopher.h>
 
-long long get_time(void)
+/* **************************************************** */
+/*                     🅶🅴🆃_🆃🅸🅼🅴                    */
+/* **************************************************** */
+
+long long	get_time(void)
 
 {
-    struct timeval time;
-    
-    gettimeofday(&time, NULL);
-    return ((time.tv_sec * 1000) + (time.tv_usec * 1000));
-    
+	struct timeval	time;
+
+	gettimeofday (&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec * 1000));
 }
+/* **************************************************** */
+/*                     🆃🅸🅼🅴_🅳🅸🅵🅵                   */
+/* **************************************************** */
 
-
-long long time_diff(long long last_meal)
+long long	time_diff(long long last_meal)
 {
-    return (get_time - last_meal);
+	return (get_time - last_meal);
 }

@@ -42,7 +42,7 @@ $(NAME) : $(MOBJ) $(UOBJ)
 
 
 clean    : 
-		   rm -f $(MOBJ) 
+		   rm -f $(MOBJ)
 		   @echo "$(YELLOW)object files$(TAB)$(RED)were deleted.$(RESET)"
 
 fclean   : clean
