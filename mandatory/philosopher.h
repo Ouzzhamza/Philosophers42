@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/08 20:24:24 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:49:08 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <stdlib.h>
 # include <sys/time.h>
 
 /* **************************************************** */
@@ -28,7 +29,7 @@ typedef struct philosopher
 	int					right_fork_id;
 	int					last_meal_time;
 	struct s_info		*rules;
-	pthread_t			tread_id;
+	pthread_t			thread_id;
 
 }	t_philosopher;
 
@@ -42,8 +43,8 @@ typedef struct s_info
 	int				ate;
 	int				died;
 	long long		first_time;
-	pthread_mutex_t	*forks;
 	pthread_mutex_t	*meals;
+	pthread_mutex_t	*forks;
 	t_philosopher	*philosopher;
 }	t_info;
 
@@ -56,9 +57,10 @@ int			ft_strlen(char *str);
 int			ft_clear(void);
 int			ft_error(char *str);
 void		start(t_info *rules);
-char		printing(t_info *rules, int id, char *str);
+void		printing(int id, char *str);
 int			init_mutex(t_info *rules);
 long long	get_time(void);
 long long	time_diff(long long last_meal);
+void		death(t_info *rules);
 
 #endif

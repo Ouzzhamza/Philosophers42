@@ -6,19 +6,19 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 15:31:02 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/16 15:42:20 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:32:17 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../mandatory/philosopher.h"
 
 int	ft_atoi(char const *str)
 {
 	int	i;
-	int	start;
 	int	is_neg;
 	int	res;
 
+	is_neg = 1;
 	if (!str)
 		return (0);
 	i = 0;
@@ -26,12 +26,16 @@ int	ft_atoi(char const *str)
 			str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
 		i++;
 	if (str[i] == '-')
-		is_neg = -1;
-	if (is_neg == -1 || str[i] == '+')
+		ft_error ("Error : No negative numbers allowed");
+	if (str[i] == '+')
 		i++;
-	start = i;
 	res = 0;
-	while (str[i] >= '0' && str[i] <= '9')
-		res = (res * 10) + (str[i++] - '0');
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+			res = (res * 10) + (str[i++] - '0');
+		else
+			ft_error ("Error : Only digits allowed");
+	}
 	return (res * is_neg);
 }

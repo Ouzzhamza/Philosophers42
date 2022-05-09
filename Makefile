@@ -6,8 +6,8 @@ MFILE  = mandatory/
 UFILE  = useful/
 # BFILE  = bonus /
 
-MSRC   = main.c philosopher.c exit.c \
-USRC   = death.c ft_atoi.c ft_strlen.c get_time.c \
+MSRC   = main.c philosopher.c exit.c 
+USRC   = death.c ft_atoi.c ft_strlen.c get_time.c 
 # BSRC   = 
 
 MPATH = $(addprefix $(MFILE), $(MSRC))
@@ -20,7 +20,8 @@ UOBJ   = $(UPATH:%.c=%.o)
 
 # BOBJ   = $(BFILE:%.c=:%.o)
 %.o	    :%.c mandatory/philosopher.h
-		$(CC) $(CFLAGS) -c $< -o $@
+		@$(CC) $(CFLAGS) -c $< -o $@
+		@echo "$(CHANGE)∰$(RESET)\c"
 
 
 NAME    = philosopher
@@ -32,8 +33,8 @@ all     : $(NAME)
 # bonus   : BNAME
 
 $(NAME) : $(MOBJ) $(UOBJ)
-		  $(CC) $(MOBJ) $(UOBJ) -o $(NAME)
-		  @echo "$(CHANGE)∰$(RESET)\c"
+		  @$(CC) $(MOBJ) $(UOBJ) -o $(NAME)
+		  @echo " $(GREEN) \nDONE $(RESET)"
 
 
 # $(BNAME) : $(BMOBJ) $(UOBJ)
@@ -42,12 +43,12 @@ $(NAME) : $(MOBJ) $(UOBJ)
 
 
 clean    : 
-		   rm -f $(MOBJ)
+		  @ rm -f $(MOBJ) $(UOBJ)
 		   @echo "$(YELLOW)object files$(TAB)$(RED)were deleted.$(RESET)"
 
 fclean   : clean
-		   rm -f $(NAME)
-		   @echo "$(NAME)$(RED)DELETED.$(RESET)"
+		   @ rm -f $(NAME)
+		   @echo "$(RED)DELETED.$(RESET)"
 
 re       : fclean all
 

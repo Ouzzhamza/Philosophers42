@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 15:29:44 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/08 20:21:05 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:05:34 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	ft_error(char *str)
 {
 	write(1, str, ft_strlen(str));
-	return (1);
+	exit (0);
 }
 
 /* **************************************************** */
@@ -35,7 +35,7 @@ int	ft_clear(void)
 /*                     🅵🆃_🅲🅻🅴🅰🆁                    */
 /* **************************************************** */
 
-char	printing(t_info *rules, int id, char *str)
+void	printing(int id, char *str)
 {
-	printf ("%d %d %s\n", get_time(), id, str);
+	printf ("%lld %d %s\n", get_time(), id, str);
 }

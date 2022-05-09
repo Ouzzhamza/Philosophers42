@@ -6,11 +6,11 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 15:32:29 by houazzan          #+#    #+#             */
-/*   Updated: 2022/04/16 15:39:26 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/09 10:34:47 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../mandatory/philosopher.h"
 
 int	ft_strlen(char *str)
 {
