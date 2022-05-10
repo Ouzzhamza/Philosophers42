@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 15:29:44 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/10 16:57:55 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/10 22:47:08 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	ft_clear(void)
 
 void	printing(t_info *rules, int id, char *str)
 {
-	(void) (rules);
-	printf ("%lli %d %s\n", get_time(), id, str);
+	printf("%lli\n", rules->first_time);
+	printf ("%lli %d %s\n", get_time() - rules->first_time, id + 1, str);
 }

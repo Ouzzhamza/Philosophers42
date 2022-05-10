@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 17:48:24 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/10 17:00:50 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/10 22:48:09 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@
 /*                     🅴🅰🆃🅸🅽🅶                       */
 /* **************************************************** */
 
-void	eating(t_philosopher *philo, t_info	*rules)
+void	eating(t_philosopher *philo)
 {
+	t_info	*rules;
+
+	rules = philo->rules;
+	//pthread_mutex_lock(&(rules->forks[philo->left_fork_id]));
+	printing(rules, philo->id, "has taken a fork");
 	pthread_mutex_lock(&(rules->forks[philo->right_fork_id]));
 	printing(rules, philo->id, "has taken a fork");
-	pthread_mutex_lock(&(rules->forks[philo->left_fork_id]));
-	printing(rules, philo->id, "has taken a fork");
-	pthread_mutex_lock(rules->meals);
+	pthread_mutex_lock(&rules->meals);
 	printing(rules, philo->id, "is eating");
 	//philo->last_meal_time = get_time();
 	// pthread_mutex_unlock(&(rules->meal_check));
@@ -43,12 +46,11 @@ void	*philosopher(void *philosophe)
 
 	philo = (t_philosopher *)philosophe;
 	rules = philo->rules;
-	printf ("%lli\n", rules->first_time);
 	if (philo->id % 2)
 		usleep (15000);
 	while (1)
 	{
-		eating(philo, rules);
+		eating(philo);
 		printing(rules, philo->id, "is sleeping");
 		usleep(rules->time_to_sleep * 1000);
 		printing(rules, philo->id, "is thinking");
@@ -71,16 +73,8 @@ void	start(t_info *rules)
 		if (pthread_create(&(rules->philosopher[i].thread_id), NULL, \
 			philosopher, &(rules->philosopher[i])) != 0)
 			ft_error ("Error creating a thread");
-		printf("%lli\n", rules->philosopher->rules->first_time);
-		printf("%lli\n", rules->first_time);
 		rules->philosopher[i].last_meal_time = get_time();
 		i++;
 	}
-	i = 0;
-	while (i < rules->philo_number)
-	{
-		pthread_detach(rules->philosopher[i].thread_id);
-		i++;
-	}
-	// death(rules);
+	death(rules);
 }

@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/10 15:08:56 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/10 22:35:51 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ int	init_mutex(t_info *rules)
 {
 	int	i;
 
-	i = 0;
-	rules->forks = malloc (rules->philo_number * sizeof(pthread_mutex_t));
-	while (i < rules->philo_number)
+	i = rules->philo_number;
+	while (--i >= 0)
 	{
-		if (pthread_mutex_init(&rules->forks[i], NULL))
+		if (pthread_mutex_init(&(rules->forks[i]), NULL))
 			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -39,7 +37,6 @@ int	init_philo(t_info *rules)
 	int	i;
 
 	i = 0;
-	rules->philosopher = malloc (rules->philo_number * sizeof (t_philosopher));
 	while (i < rules->philo_number)
 	{
 		rules->philosopher[i].id = i;
@@ -63,18 +60,19 @@ int	get_info(int ac, char **av, t_info *rules)
 	rules->time_to_sleep = ft_atoi(av[4]);
 	rules->ate = 0;
 	rules->died = 0;
-	if (ac == 6)
-	{
-		rules->number_of_meals = ft_atoi(av[5]);
-		if (rules->number_of_meals == 0)
-			return (0);
-	}
-	else
-		rules->number_of_meals = 0;
 	if (rules->philo_number < 2 || rules->time_to_die < 0 || \
 		rules->time_to_sleep < 0 || rules->time_to_sleep < 0)
 		return (0);
-	init_mutex(rules);
+	if (ac == 6)
+	{
+		rules->number_of_meals = ft_atoi(av[5]);
+		if (rules->number_of_meals <= 0)
+			return (0);
+	}
+	else
+		rules->number_of_meals = -1;
+	if (init_mutex(rules))
+		return (0);
 	init_philo(rules);
 	return (1);
 }
@@ -85,7 +83,7 @@ int	get_info(int ac, char **av, t_info *rules)
 
 int	main(int ac, char **av)
 {
-	t_info	rules;
+	t_info			rules;
 
 	if (ac != 5 && ac != 6)
 		return (ft_error("Number of argument is wrong"));
