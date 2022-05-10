@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/09 18:37:09 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/10 15:08:56 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	init_philo(t_info *rules)
 	{
 		rules->philosopher[i].id = i;
 		rules->philosopher[i].left_fork_id = i;
-		rules->philosopher[i].right_fork_id = i + 1 % rules->philo_number;
+		rules->philosopher[i].right_fork_id = (i + 1) % rules->philo_number;
 		rules->philosopher->last_meal_time = 0;
 		i++;
 	}

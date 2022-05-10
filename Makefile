@@ -1,6 +1,6 @@
 CC     = cc
 
-CFLAGS  = -Wall -Wextra -Werror
+CFLAGS  = -Wall -Wextra -Werror -g
 
 MFILE  = mandatory/
 UFILE  = useful/

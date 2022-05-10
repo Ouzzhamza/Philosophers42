@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/09 18:49:08 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/10 16:31:54 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			ft_strlen(char *str);
 int			ft_clear(void);
 int			ft_error(char *str);
 void		start(t_info *rules);
-void		printing(int id, char *str);
+void		printing(t_info *rules ,int id, char *str);
 int			init_mutex(t_info *rules);
 long long	get_time(void);
 long long	time_diff(long long last_meal);
