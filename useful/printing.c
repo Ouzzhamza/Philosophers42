@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_time.c                                         :+:      :+:    :+:   */
+/*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 15:19:09 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/11 15:53:36 by houazzan         ###   ########.fr       */
+/*   Created: 2022/05/11 13:32:38 by houazzan          #+#    #+#             */
+/*   Updated: 2022/05/11 16:05:12 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    "../mandatory/philosopher.h"
 
+
 /* **************************************************** */
-/*                     🅶🅴🆃_🆃🅸🅼🅴                    */
+/*                     🅿🆁🅸🅽🆃🅸🅽🅶                    */
 /* **************************************************** */
 
-long long	get_time(void)
-
+void	printing(t_info *rules, int id, char *str)
 {
-	struct timeval	time;
-
-	gettimeofday (&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-}
-/* **************************************************** */
-/*                     🆃🅸🅼🅴_🅳🅸🅵🅵                   */
-/* **************************************************** */
-
-long long	time_diff(long long then, long long now)
-{
-	return (now - then);
+	pthread_mutex_lock(&rules->write);
+	if ((rules->died))
+	{
+		printf ("%lli %d %s\n", get_time() - rules->first_time, id + 1, str);
+	}
+	pthread_mutex_unlock(&rules->write);
 }

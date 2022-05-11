@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/10 22:27:19 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:51:11 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct philosopher
 	int					left_fork_id;
 	int					right_fork_id;
 	int					last_meal_time;
+	int					n_ate;
 	struct s_info		*rules;
 	pthread_t			thread_id;
 
@@ -43,10 +44,12 @@ typedef struct s_info
 	int				ate;
 	int				died;
 	long long		first_time;
+	pthread_mutex_t	forks;
 	pthread_mutex_t	meals;
-	pthread_mutex_t	forks[250];
-	t_philosopher	philosopher[250];
+	pthread_mutex_t	write;
 }	t_info;
+
+//ptr = (t_info *)malloc(5 * sizeof(t_info));
 
 /* **************************************************** */
 /*             🆁🅴🅶🆄🅻🅰🆁 🅵🆄🅽🅲🆃🅸🅾🅽🆂             */
@@ -56,11 +59,13 @@ int			ft_atoi(char const *str);
 int			ft_strlen(char *str);
 int			ft_clear(void);
 int			ft_error(char *str);
-void		start(t_info *rules);
+void		start(t_info *rules, t_philosopher *philosopher);
 void		printing(t_info *rules, int id, char *str);
 int			init_mutex(t_info *rules);
 long long	get_time(void);
-long long	time_diff(long long last_meal);
-void		death(t_info *rules);
+long long	time_diff(long long then, long long now);
+void		death(t_info *rules, t_philosopher *philosopher);
+void		exiting(t_info *rules, t_philosopher *philosopher);
+void		printing(t_info *rules, int id, char *str);
 
 #endif

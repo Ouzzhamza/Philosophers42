@@ -6,8 +6,8 @@ MFILE  = mandatory/
 UFILE  = useful/
 # BFILE  = bonus /
 
-MSRC   = main.c philosopher.c exit.c 
-USRC   = death.c ft_atoi.c ft_strlen.c get_time.c 
+MSRC   = main.c philosopher.c err_exit.c 
+USRC   = death.c ft_atoi.c ft_strlen.c get_time.c exiting.c printing.c
 # BSRC   = 
 
 MPATH = $(addprefix $(MFILE), $(MSRC))

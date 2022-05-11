@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/10 22:35:51 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/11 21:54:07 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int	init_mutex(t_info *rules)
 	int	i;
 
 	i = rules->philo_number;
+	if (pthread_mutex_init(&(rules->write), NULL))
+		return (1);
 	while (--i >= 0)
 	{
-		if (pthread_mutex_init(&(rules->forks[i]), NULL))
+		if (pthread_mutex_init(&(rules->forks), NULL))
 			return (1);
 	}
 	return (0);
@@ -32,17 +34,18 @@ int	init_mutex(t_info *rules)
 /*                    🅵🅸🅻_🅸🅽🅵🅾                     */
 /* **************************************************** */
 
-int	init_philo(t_info *rules)
+int	init_philo(t_info *rules, t_philosopher *philosopher)
 {
 	int	i;
 
 	i = 0;
 	while (i < rules->philo_number)
 	{
-		rules->philosopher[i].id = i;
-		rules->philosopher[i].left_fork_id = i;
-		rules->philosopher[i].right_fork_id = (i + 1) % rules->philo_number;
-		rules->philosopher->last_meal_time = 0;
+		philosopher[i].rules = rules;
+		philosopher[i].id = i;
+		philosopher[i].left_fork_id = i;
+		philosopher[i].right_fork_id = (i + 1) % rules->philo_number;
+		philosopher->last_meal_time = 0;
 		i++;
 	}
 	return (1);
@@ -52,8 +55,9 @@ int	init_philo(t_info *rules)
 /*                     🅶🅴🆃_🅸🅽🅵🅾                    */
 /* **************************************************** */
 
-int	get_info(int ac, char **av, t_info *rules)
+int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 {
+
 	rules->philo_number = ft_atoi(av[1]);
 	rules->time_to_die = ft_atoi(av[2]);
 	rules->time_to_eat = ft_atoi(av[3]);
@@ -71,9 +75,10 @@ int	get_info(int ac, char **av, t_info *rules)
 	}
 	else
 		rules->number_of_meals = -1;
+	//philosopher = malloc (rules->philo_number * sizeof (t_philosopher));
 	if (init_mutex(rules))
 		return (0);
-	init_philo(rules);
+	init_philo(rules, philosopher);
 	return (1);
 }
 
@@ -84,11 +89,12 @@ int	get_info(int ac, char **av, t_info *rules)
 int	main(int ac, char **av)
 {
 	t_info			rules;
+	t_philosopher	philosopher;
 
 	if (ac != 5 && ac != 6)
 		return (ft_error("Number of argument is wrong"));
-	if (!get_info(ac, av, &rules))
+	if (!get_info(ac, av, &rules, &philosopher))
 		return (ft_error("Probleme In Information") && ft_clear());
-	start(&rules);
+	start(&rules, &philosopher);
 	return (0);
 }
