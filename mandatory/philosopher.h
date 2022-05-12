@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/11 21:51:11 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:14:38 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ typedef struct s_info
 	int				time_to_sleep;
 	int				time_to_die;
 	int				number_of_meals;
-	int				ate;
+	int				all_ate;
 	int				died;
 	long long		first_time;
-	pthread_mutex_t	forks;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	meals;
 	pthread_mutex_t	write;
 }	t_info;
@@ -67,5 +67,6 @@ long long	time_diff(long long then, long long now);
 void		death(t_info *rules, t_philosopher *philosopher);
 void		exiting(t_info *rules, t_philosopher *philosopher);
 void		printing(t_info *rules, int id, char *str);
+void		sleep_time(int time, t_info *rules);
 
 #endif

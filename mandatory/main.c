@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/11 21:54:07 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/12 19:14:28 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_mutex(t_info *rules)
 		return (1);
 	while (--i >= 0)
 	{
-		if (pthread_mutex_init(&(rules->forks), NULL))
+		if (pthread_mutex_init((rules->forks), NULL))
 			return (1);
 	}
 	return (0);
@@ -46,6 +46,7 @@ int	init_philo(t_info *rules, t_philosopher *philosopher)
 		philosopher[i].left_fork_id = i;
 		philosopher[i].right_fork_id = (i + 1) % rules->philo_number;
 		philosopher->last_meal_time = 0;
+		philosopher->n_ate = 0;
 		i++;
 	}
 	return (1);
@@ -62,7 +63,7 @@ int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 	rules->time_to_die = ft_atoi(av[2]);
 	rules->time_to_eat = ft_atoi(av[3]);
 	rules->time_to_sleep = ft_atoi(av[4]);
-	rules->ate = 0;
+	rules->all_ate = 0;
 	rules->died = 0;
 	if (rules->philo_number < 2 || rules->time_to_die < 0 || \
 		rules->time_to_sleep < 0 || rules->time_to_sleep < 0)
@@ -75,7 +76,8 @@ int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 	}
 	else
 		rules->number_of_meals = -1;
-	//philosopher = malloc (rules->philo_number * sizeof (t_philosopher));
+	rules->forks = (pthread_mutex_t *)malloc \
+	(ft_atoi(av[1]) * sizeof(pthread_mutex_t));
 	if (init_mutex(rules))
 		return (0);
 	init_philo(rules, philosopher);
@@ -89,12 +91,16 @@ int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 int	main(int ac, char **av)
 {
 	t_info			rules;
-	t_philosopher	philosopher;
+	t_philosopher	*philosopher;
 
+	philosopher = NULL;
+
+	philosopher = (t_philosopher *) malloc \
+	(ft_atoi(av[1]) * sizeof(t_philosopher));
 	if (ac != 5 && ac != 6)
 		return (ft_error("Number of argument is wrong"));
-	if (!get_info(ac, av, &rules, &philosopher))
+	if (!get_info(ac, av, &rules, philosopher))
 		return (ft_error("Probleme In Information") && ft_clear());
-	start(&rules, &philosopher);
+	start(&rules, philosopher);
 	return (0);
 }
