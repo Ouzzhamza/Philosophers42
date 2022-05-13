@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 17:48:24 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/12 20:28:47 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/13 21:49:14 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	*routine(void *philosophe)
 
 	philo = (t_philosopher *)philosophe;
 	rules = philo->rules;
-	printf("not %d\n", philo->last_meal_time);
 	if (philo->id % 2)
 		usleep (200);
 	while (!(rules->died))
@@ -73,7 +72,6 @@ void	start(t_info *rules, t_philosopher *philosopher)
 	rules->first_time = get_time();
 	while (i < rules->philo_number)
 	{
-		printf("dead or not %d\n", philosopher[i].last_meal_time);
 		if (pthread_create(&(philosopher[i].thread_id), NULL, \
 			routine, &(philosopher[i])) != 0)
 			ft_error ("Error creating a thread");

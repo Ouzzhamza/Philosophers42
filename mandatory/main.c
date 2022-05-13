@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/12 19:14:28 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/13 19:34:23 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	init_philo(t_info *rules, t_philosopher *philosopher)
 		philosopher[i].id = i;
 		philosopher[i].left_fork_id = i;
 		philosopher[i].right_fork_id = (i + 1) % rules->philo_number;
-		philosopher->last_meal_time = 0;
-		philosopher->n_ate = 0;
+		philosopher[i].last_meal_time = 0;
+		philosopher[i].n_ate = 0;
 		i++;
 	}
 	return (1);
@@ -101,6 +101,7 @@ int	main(int ac, char **av)
 		return (ft_error("Number of argument is wrong"));
 	if (!get_info(ac, av, &rules, philosopher))
 		return (ft_error("Probleme In Information") && ft_clear());
+
 	start(&rules, philosopher);
 	return (0);
 }

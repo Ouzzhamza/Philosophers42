@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/12 19:14:38 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/13 19:34:16 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 /* **************************************************** */
 /*                  🅳🅰🆃🅰 🆂🆃🆁🆄🅲🆃                  */
 /* **************************************************** */
-typedef struct philosopher
+typedef struct s_philosopher
 {
 	int					id;
 	int					left_fork_id;
 	int					right_fork_id;
-	int					last_meal_time;
+	long long			last_meal_time;
 	int					n_ate;
 	struct s_info		*rules;
 	pthread_t			thread_id;
