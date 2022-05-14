@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/13 19:34:23 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/14 21:54:27 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_mutex(t_info *rules)
 		return (1);
 	while (--i >= 0)
 	{
-		if (pthread_mutex_init((rules->forks), NULL))
+		if (pthread_mutex_init(&(rules->forks[i]), NULL))
 			return (1);
 	}
 	return (0);
@@ -43,8 +43,8 @@ int	init_philo(t_info *rules, t_philosopher *philosopher)
 	{
 		philosopher[i].rules = rules;
 		philosopher[i].id = i;
-		philosopher[i].left_fork_id = i;
-		philosopher[i].right_fork_id = (i + 1) % rules->philo_number;
+		philosopher[i].right_fork_id = i;
+		philosopher[i].left_fork_id = (i + 1) % rules->philo_number;
 		philosopher[i].last_meal_time = 0;
 		philosopher[i].n_ate = 0;
 		i++;
@@ -58,14 +58,13 @@ int	init_philo(t_info *rules, t_philosopher *philosopher)
 
 int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 {
-
 	rules->philo_number = ft_atoi(av[1]);
 	rules->time_to_die = ft_atoi(av[2]);
 	rules->time_to_eat = ft_atoi(av[3]);
 	rules->time_to_sleep = ft_atoi(av[4]);
 	rules->all_ate = 0;
 	rules->died = 0;
-	if (rules->philo_number < 2 || rules->time_to_die < 0 || \
+	if (rules->time_to_die < 0 || \
 		rules->time_to_sleep < 0 || rules->time_to_sleep < 0)
 		return (0);
 	if (ac == 6)
@@ -94,14 +93,12 @@ int	main(int ac, char **av)
 	t_philosopher	*philosopher;
 
 	philosopher = NULL;
-
 	philosopher = (t_philosopher *) malloc \
 	(ft_atoi(av[1]) * sizeof(t_philosopher));
 	if (ac != 5 && ac != 6)
 		return (ft_error("Number of argument is wrong"));
 	if (!get_info(ac, av, &rules, philosopher))
-		return (ft_error("Probleme In Information") && ft_clear());
-
+		return (ft_error("Problemes In Information") && ft_clear());
 	start(&rules, philosopher);
 	return (0);
 }
