@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/15 17:57:39 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/15 18:00:25 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 /* **************************************************** */
 /*                    🅵🅸🅻_🅸🅽🅵🅾                     */
 /* **************************************************** */
-int	init_mutex(t_info *rules)
+int	init_semaphore(t_info *rules)
 {
 	int	i;
 
 	i = rules->philo_number;
-	if (pthread_mutex_init(&(rules->write), NULL))
+	if (!sem_wait(rules->write))
 		return (1);
 	while (--i >= 0)
 	{
-		if (pthread_mutex_init(&(rules->forks[i]), NULL))
+		if (!sem_wait(&(rules->forks[i])))
 			return (1);
 	}
 	return (0);
@@ -75,9 +75,9 @@ int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 	}
 	else
 		rules->number_of_meals = -1;
-	rules->forks = (pthread_mutex_t *)malloc \
-	(ft_atoi(av[1]) * sizeof(pthread_mutex_t));
-	if (init_mutex(rules))
+	rules->forks = (sem_t *) malloc \
+	(ft_atoi(av[1]) * sizeof(sem_t));
+	if (init_semaphore(rules))
 		return (0);
 	init_philo(rules, philosopher);
 	return (1);
@@ -93,8 +93,6 @@ int	main(int ac, char **av)
 	t_philosopher	*philosopher;
 
 	philosopher = NULL;
-	philosopher = (t_philosopher *) malloc \
-	(ft_atoi(av[1]) * sizeof(t_philosopher));
 	if (ac != 5 && ac != 6)
 		return (ft_error("Number of argument is wrong"));
 	if (!get_info(ac, av, &rules, philosopher))
