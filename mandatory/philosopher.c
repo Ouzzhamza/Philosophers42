@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 17:48:24 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/15 16:49:55 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:27:56 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ void	*routine(void *philosophe)
 	rules = philo->rules;
 	if (philo->id % 2)
 		usleep (200);
-	if (rules->philo_number < 2)
-	{
-		printing(rules, philo->id, "died");
-		rules->died = 1;
-	}
 	while (!(rules->died))
 	{
 		eating(philo);
