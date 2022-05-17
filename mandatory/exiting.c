@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:30:28 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/16 18:32:18 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:11:26 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exiting(t_info *rules, t_philosopher *philosopher)
 
 	i = -1;
 	while (++i < rules->philo_number)
-		pthread_detach(philosopher->thread_id);
+		pthread_join(philosopher[i].thread_id, NULL);
 	i = -1;
 	while (++i < rules->philo_number)
 		pthread_mutex_destroy(&(rules->forks[i]));

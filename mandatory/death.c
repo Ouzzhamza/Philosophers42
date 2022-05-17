@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:48:14 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/16 18:31:25 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:56:05 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	death(t_info *rules, t_philosopher *philosopher)
 			(rules->all_ate == rules->philo_number))
 		{
 			if (time > rules->time_to_die)
+			{
 				printing(rules, philosopher[i].id, "died");
+			}
 			rules->died = 1;
 			break ;
 		}

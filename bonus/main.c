@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/16 19:01:05 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/17 19:38:48 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@
 /* **************************************************** */
 int	init_semaphore(t_info *rules)
 {
-	rules->write = sem_open("/philosopher_write", O_CREAT | O_EXCL, 0644, 0);
-	rules->forks = sem_open("/philosopher_forks", O_CREAT | O_EXCL, \
-		0644, rules->philo_number);
+	sem_unlink("/philosopher_write");
+	sem_unlink("/philosopher_forks");
+	rules->write = sem_open("/philosopher_write", O_CREAT, \
+		S_IRUSR | S_IWUSR, 1);
+	rules->forks = sem_open("/philosopher_forks", O_CREAT, \
+		S_IRUSR | S_IWUSR, rules->philo_number);
 	if (rules->forks == SEM_FAILED || rules->write == SEM_FAILED)
 		return (1);
 	return (0);
@@ -72,8 +75,7 @@ int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 		rules->number_of_meals = -1;
 	rules->forks = (sem_t *) malloc \
 	(ft_atoi(av[1]) * sizeof(sem_t));
-	if (!init_semaphore(rules))
-		return (0);
+	init_semaphore(rules);
 	init_philo(rules, philosopher);
 	return (1);
 }

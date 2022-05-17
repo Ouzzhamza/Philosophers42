@@ -6,13 +6,13 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:50:30 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/14 21:17:44 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/17 15:46:14 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    "philosopher.h"
 
-void	sleep_time(int time, t_info *rules)
+void	sleep_time(long long time, t_info *rules)
 {
 	long long	i;
 

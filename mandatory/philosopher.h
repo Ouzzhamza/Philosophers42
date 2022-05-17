@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:08:33 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/16 18:59:20 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/17 18:57:12 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_philosopher
 typedef struct s_info
 {
 	int				philo_number;
-	int				time_to_eat;
-	int				time_to_sleep;
+	long long		time_to_eat;
+	long long		time_to_sleep;
 	int				time_to_die;
 	int				number_of_meals;
 	int				all_ate;
@@ -66,6 +66,6 @@ long long	time_diff(long long then, long long now);
 void		death(t_info *rules, t_philosopher *philosopher);
 void		exiting(t_info *rules, t_philosopher *philosopher);
 void		printing(t_info *rules, int id, char *str);
-void		sleep_time(int time, t_info *rules);
+void		sleep_time(long long time, t_info *rules);
 
 #endif

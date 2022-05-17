@@ -1,6 +1,6 @@
 CC     = cc
 
-CFLAGS  = -Wall -Wextra -Werror -g
+CFLAGS  = -Wall -Wextra -Werror
 
 MSRC   = main.c philosopher_bonus.c err_exit_bonus.c death_bonus.c ft_atoi_bonus.c ft_strlen_bonus.c \
 		get_time_bonus.c exiting_bonus.c printing_bonus.c sleep_bonus.c
@@ -16,7 +16,7 @@ BNAME   = philosopher_bonus
 bonus     : $(NAME)
 
 $(NAME) : $(MOBJ)
-		  @$(CC) $(MOBJ) -o $(NAME)
+		  @$(CC) $(CFLAGS) $(MOBJ) -o $(NAME)
 		  @echo "$(GREEN)BONUS DONE$(RESET)"
 
 clean    : 
