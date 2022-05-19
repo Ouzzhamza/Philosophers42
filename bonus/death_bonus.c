@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:48:14 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/17 12:54:39 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/19 23:43:20 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	p_death( void *philo)
 			{
 				printing(philosopher->rules, philosopher[i].id, "died");
 				philosopher->rules->died = 1;
-				exit(1);
+				exit(0);
 			}
 			philosopher->rules->died = 1;
 			break ;

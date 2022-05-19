@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 17:48:24 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/17 20:04:59 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/19 23:20:44 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	eating(t_philosopher *philo)
 	t_info	*rules;
 
 	rules = philo->rules;
+	usleep(20);
 	sem_wait(rules->forks);
 	printing(rules, philo->id, "has taken a right fork");
 	sem_wait(rules->forks);
 	printing(rules, philo->id, "has taken a left fork");
 	philo->last_meal_time = get_time();
 	printing(rules, philo->id, "is eating");
-	//sleep_time(rules->time_to_eat, rules);
+	sleep_time(rules->time_to_eat, rules);
 	(philo->n_ate)++;
 	sem_post(rules->forks);
 	sem_post(rules->forks);
@@ -51,7 +52,7 @@ void	*process_routine(t_philosopher	*philo)
 	{
 		eating(philo);
 		printing(philo->rules, philo->id, "is sleeping");
-		// sleep_time(philo->rules->time_to_sleep, philo->rules);
+		sleep_time(philo->rules->time_to_sleep, philo->rules);
 		// printing(philo->rules, philo->id, "is thinking");
 	}
 	pthread_detach(philo->thread_id);
