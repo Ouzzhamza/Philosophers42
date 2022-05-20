@@ -6,12 +6,11 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:50:30 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/19 21:44:33 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:57:31 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    "philosopher.h"
-
 
 void	sleep_time(long long time, t_info *rules)
 {

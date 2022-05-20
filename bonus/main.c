@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:26:23 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/17 19:38:48 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:36:24 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	get_info(int ac, char **av, t_info *rules, t_philosopher *philosopher)
 	}
 	else
 		rules->number_of_meals = -1;
-	rules->forks = (sem_t *) malloc \
-	(ft_atoi(av[1]) * sizeof(sem_t));
 	init_semaphore(rules);
 	init_philo(rules, philosopher);
 	return (1);

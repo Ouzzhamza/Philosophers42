@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 17:48:24 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/19 23:20:44 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/20 18:08:10 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void	eating(t_philosopher *philo)
 	printing(rules, philo->id, "is eating");
 	sleep_time(rules->time_to_eat, rules);
 	(philo->n_ate)++;
-	sem_post(rules->forks);
-	sem_post(rules->forks);
 	if (philo->n_ate == rules->number_of_meals)
 		rules->all_ate++;
+	printf("id = |%d| value = |%d|\n", philo->id, rules->all_ate);
+	sem_post(rules->forks);
+	sem_post(rules->forks);
 }
 
 /* **************************************************** */
@@ -44,18 +45,14 @@ void	*process_routine(t_philosopher	*philo)
 {
 	if (philo->id % 2)
 		usleep (200);
-	if (pthread_create(&(philo->thread_id), NULL, (void *)p_death, \
-		(&philo)) != 0)
-		ft_error ("Error creating a thread");
-	philo->last_meal_time = get_time();
 	while (!(philo->rules->died))
 	{
 		eating(philo);
 		printing(philo->rules, philo->id, "is sleeping");
 		sleep_time(philo->rules->time_to_sleep, philo->rules);
-		// printing(philo->rules, philo->id, "is thinking");
+		printing(philo->rules, philo->id, "is thinking");
 	}
-	pthread_detach(philo->thread_id);
+	pthread_join(philo->thread_id, NULL);
 	if (philo->rules->died)
 		exit (1);
 	exit (0);
@@ -77,7 +74,13 @@ void	start(t_info *rules, t_philosopher *philosopher)
 		if (philosopher[i].pid == -1)
 			ft_error("Error creating a process");
 		if (philosopher[i].pid == 0)
+		{
+			philosopher[i].last_meal_time = get_time();
+			if (pthread_create(&(philosopher->thread_id), NULL, \
+				(void *)p_death, (&philosopher[i])) != 0)
+				ft_error ("Error creating a thread");
 			process_routine(&philosopher[i]);
+		}
 		i++;
 	}
 	exiting(rules, philosopher);
