@@ -6,21 +6,11 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 15:48:14 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/20 17:55:21 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/21 20:15:22 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    "philosopher.h"
-
-void	dead(t_philosopher *philosopher, int i, long long time)
-{
-	if (time > philosopher->rules->time_to_die)
-	{
-		printing(philosopher->rules, philosopher[i].id, "died");
-		philosopher->rules->died = 1;
-		exit(1);
-	}
-}
 
 /* **************************************************** */
 /*                       🅳🅴🅰🆃🅷                       */
@@ -34,19 +24,22 @@ void	p_death( void *philo)
 
 	i = 0;
 	philosopher = (t_philosopher *) philo;
-	while (1)
+	while (!philosopher->rules->died)
 	{
+		if (philosopher->n_ate == philosopher->rules->number_of_meals)
+			exit (0);
 		if (i == philosopher->rules->philo_number)
 			i = 0;
 		time = time_diff(philosopher->last_meal_time, get_time());
-		if (time > philosopher->rules->time_to_die || \
-			(philosopher->rules->all_ate == philosopher->rules->philo_number))
+		if (time > philosopher->rules->time_to_die)
 		{
-			dead(philosopher, i, time);
+			printing(philosopher->rules, philosopher[i].id, "died");
+			sem_wait(philosopher->rules->write);
 			philosopher->rules->died = 1;
-			break ;
+			exit (1);
 		}
-		usleep (100);
+		if (philosopher->rules->died == 1)
+			break ;
 		i++;
 	}
 }

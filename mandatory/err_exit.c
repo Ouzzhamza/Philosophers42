@@ -6,7 +6,7 @@
 /*   By: houazzan <houazzan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 15:29:44 by houazzan          #+#    #+#             */
-/*   Updated: 2022/05/15 17:13:43 by houazzan         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:18:53 by houazzan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@
 int	ft_error(char *str)
 {
 	write(1, str, ft_strlen(str));
-	exit (0);
+	return (1);
 }
